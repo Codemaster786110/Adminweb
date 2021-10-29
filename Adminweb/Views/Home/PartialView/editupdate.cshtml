@@ -1,0 +1,90 @@
+﻿@model Adminweb.Models.Employee
+
+
+            <div class="modal-body">
+                <div class="row">
+                    <input type="text" hidden class="form-control" name="id" value=@Model.ID>
+                    <div class="col-sm-6">
+                        Name:
+                        <input type="text" class="form-control" id="name" placeholder="name" value=@Model.Name name="name">
+                    </div>
+                    <div class="col-sm-6">
+                        Email:
+                        <input type="text" class="form-control" placeholder="email" id="email" value=@Model.Email name="email">
+                    </div>
+                    <div class="col-sm-6">
+                        Phone no:
+                        <input type="text" class="form-control" id="Phone_no" placeholder="phone no" value="@Model.PhoneNo" name="Phone_no">
+                    </div>  <br>
+                    <div class="form-check form-check-inline col-sm-6">
+                        Gender&nbsp;
+
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male" @Html.Raw(Model.Gender == "male" ? "checked" :string.Empty)>
+                        <label class="form-check-label" for="inlineRadio1">male</label>
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female"  @Html.Raw(Model.Gender == "female" ? "checked" :string.Empty)>
+                        <label class="form-check-label" for="inlineRadio2">female</label>
+                    </div>
+                    <div>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            Department&nbsp&nbsp
+                            <input class="form-check-input department" name="department" type="checkbox" id="inlineCheckbox1" value="Hr" @Html.Raw(Model.Department == "Hr" ? "checked" :string.Empty)>
+                            <label class="form-check-label" for="inlineCheckbox1">Hr</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input department" name="department" type="checkbox" id="inlineCheckbox2" value="Account" @Html.Raw(Model.Department == "Account" ? "checked" :string.Empty)>
+                            <label class="form-check-label" for="inlineCheckbox2">Account</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input department" name="department" type="checkbox" id="inlineCheckbox3" value="IT" @Html.Raw(Model.Department == "IT" ? "checked" :string.Empty)>
+                            <label class="form-check-label" for="inlineCheckbox1">IT</label>
+                        </div>
+                    </div> <br>
+                    <div>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            Skill&nbsp&nbsp
+                            <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox1" value=".Net" @Html.Raw(Model.Skill == ".Net" ? "checked" :string.Empty)>
+                            <label class="form-check-label" for="Checkbox1">.Net</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox2" value="SQL Server" @Html.Raw(Model.Skill == "SQL Server" ? "checked" :string.Empty)>
+                            <label class="form-check-label" for="Checkbox2">SQL Server</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox3" value="Django" @Html.Raw(Model.Skill == "Django" ? "checked" :string.Empty)>
+                            <label class="form-check-label" for="Checkbox1">Django</label>
+                        </div>
+                    </div> <br>
+
+                    <div class="form-group col-sm-6">
+                        <label for="exampleFormControlSelect1">State</label>
+                        <select class="form-control" onchange="Chkcity()" id="exampleFormControlSelect" value="select">
+                            <option name="state">--Select--</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="exampleFormControlSelect1">City</label>
+                        <select class="form-control" id="exampleFormControlSelect1" value="select1">
+                            <option name="city">--Select--</option>
+
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <center>
+                            &emsp;&emsp; &emsp;&emsp;
+                            @if (Model.ID > 0)
+                            {
+                                <button class="btn btn-success" id="subBtn">update</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-success" id="subBtn">Save</button>
+                            }
+                            <button class="btn btn-danger" id="canBtn" onclick="showhide()" data-dismiss="modal">Cancel</button>
+                        </center>
+                    </div>
+                </div>
+            </div>
+ 

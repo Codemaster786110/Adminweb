@@ -2135,6 +2135,9 @@
     <Content Include="Views\Home\Employee.cshtml" />
     <Content Include="Views\Home\State.cshtml" />
     <Content Include="Views\Home\City.cshtml" />
+    <Content Include="Views\View.cshtml" />
+    <Content Include="Views\Home\PartialView\emptbl.cshtml" />
+    <Content Include="Views\Home\PartialView\editupdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
