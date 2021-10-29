@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "State";
+}
+
+
+
+<div class="content-wrapper">
+    <div class="container">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-dark float-right" data-toggle="modal" data-target="#exampleModal">
+            Add state
+        </button>
+        <div>
+            <div class="container table-responsive">
+                <h2>States</h2>
+
+                <table class="table" style="height:100px; overflow: hidden;">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>State</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header accent-gray-dark">
+                        <h5 class="modal-title" id="exampleModalLabel">Add State</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                State:
+                                <input type="text" class="form-control" id="state" placeholder="Enter State Name" name="state">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="Add">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    var loadState = function () {
+
+        $.get('/Home/getState').done(function (result) {
+            $("tbody").html("");
+            for (i = 0; i < result.length; i++) {
+                $('tbody').append('<tr data-state-Id="' + result[i].Id + '"><td>' + result[i].Id + '</td>' +
+                    '<td>' + result[i].StateName + '</td>' +
+                    '<td><button class="btn btn-danger delbtn">delete</button></td></tr>');
+            };
+        });
+    };
+
+    $(document).ready(function () {
+        loadState();
+        $('body').on('click', '#Add', function () {
+            var State = $('[name="state"]').val();
+            //var rowcount = $('tbody tr').length;
+            //$("tbody").append('<tr data-State=' + state + '><td>' + (rowcount + 1) + '</td>' +
+            //    '<td>' + State + '</td>' +
+            //    '</tr>');
+
+            $.post('/Home/AddState', { State }).done(function (result) {
+                loadState();
+                
+            }).fail(function (result) {
+                alert('Failed');
+            })
+        });
+    });
+
+
+    $('body').on('click', '.delbtn', function () {
+
+        var obj = {
+            Id: $(this).closest('tr').data().stateId
+        }
+
+        $.post('/Home/Del_State', obj).done(function (result) {
+            loadState();
+        }).fail(function (result) {
+            alert('Failed');
+        });
+
+
+    });
+
+</script>

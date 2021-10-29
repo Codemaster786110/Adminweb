@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "City";
+}
+
+
+<div class="content-wrapper">
+    <div class="container">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-dark float-right" data-toggle="modal" data-target="#exampleModal">
+            Add City
+        </button>
+        <div>
+            <div class="container table-responsive">
+                <h2>City</h2>
+
+                <table class="table" style="height:100px; overflow: hidden;">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>City</th>
+                            <th>StateName</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header accent-gray-dark">
+                        <h5 class="modal-title" id="exampleModalLabel">Add City</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="exampleFormControlSelect1">State</label>
+                                <select class="form-control" id="exampleFormControlSelect" value="select">
+                                    <option name="state">--Select--</option>
+                                    
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                City:
+                                <input type="text" class="form-control" id="city" placeholder="Enter City Name" name="city">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="Add">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var loadCity = function () {
+
+        $.get('/Home/getCity').done(function (result) {
+            $("tbody").html("");
+            console.log(result)
+            for (i = 0; i < result.length; i++) {
+
+                $('tbody').append('<tr data-city-Id="' + result[i].Id + '"><td>' + result[i].Id + '</td>' +
+                    '<td>' + result[i].CityName + '</td>' +
+                    '<td>' + result[i].State + '</td>' +
+                    '<td><button class="btn btn-danger delbtn">delete</button></td></tr>');
+            };
+        });
+    };
+
+    $(document).ready(function () {
+        loadCity();
+        loadState1();
+        $('body').on('click', '#Add', function () {
+           var obj = {
+                StateId : $('#exampleFormControlSelect').val(),
+                  CityName : $('[name="city"]').val()
+            }
+
+            $.post('/Home/AddCity', obj).done(function (result) {
+                loadCity();
+
+            }).fail(function (result) {
+                alert('Failed');
+            })
+        });
+    });
+    $('body').on('click', '.delbtn', function () {
+
+        var obj = {
+            Id: $(this).closest('tr').data().cityId
+        }
+
+        $.post('/Home/Del_City', obj).done(function (result) {
+            loadCity();
+        }).fail(function (result) {
+            alert('Failed');
+        });
+
+
+    });
+
+    var loadState1 = function () {
+
+        $.get('/Home/getState').done(function (result) {
+            $("tbody").html("");
+            for (i = 0; i < result.length; i++) {
+                $("#exampleFormControlSelect").append($("<option></option>").val(result[i].Id).html(result[i].StateName));  
+            };
+        });
+    };
+
+
+</script>
+
