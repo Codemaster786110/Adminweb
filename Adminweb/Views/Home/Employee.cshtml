@@ -16,9 +16,9 @@
         </div>
         <div class="card-body">
             <div class="container table-responsive">
-                
 
-                  <table class="table  table-hover" style="height:100px; overflow: hidden;">
+
+                <table class="table  table-hover" style="height:100px; overflow: hidden;">
 
                     <thead>
                         <tr>
@@ -37,7 +37,6 @@
                     </thead>
 
                     <tbody>
-
                     </tbody>
                 </table>
 
@@ -45,7 +44,7 @@
 
         </div>
     </div>
-  </div>
+</div>
 
 
 <!-- Modal -->
@@ -62,7 +61,7 @@
 
 
 
-               <div class="modal-body">
+            <div class="modal-body">
                 <div class="row">
                     <input type="text" hidden class="form-control" name="id" value="0">
                     <div class="col-sm-12">
@@ -103,41 +102,42 @@
                     </div> <br>
                     <div>
                         <br>
-                        <div  id="skildiv" class="form-check form-check-inline">
+                        <div id="skildiv" class="form-check form-check-inline">
                             Skill&nbsp&nbsp
                             @*<input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox1" value=".Net">
-                            <label class="form-check-label" for="Checkbox1">.Net</label>
+                                    <label class="form-check-label" for="Checkbox1">.Net</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox2" value="SQL Server">
+                                    <label class="form-check-label" for="Checkbox2">SQL Server</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox3" value="Django">
+                                    <label class="form-check-label" for="Checkbox1">Django</label>
+                                </div>*@
+                        </div> <br>
+
+                        <div class="form-group col-sm-12">
+                            <label for="exampleFormControlSelect1">State</label>
+                            <select class="form-control" onchange="Chkcity()" id="exampleFormControlSelect" value="select">
+                                <option name="state">--Select--</option>
+
+                            </select>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox2" value="SQL Server">
-                            <label class="form-check-label" for="Checkbox2">SQL Server</label>
+                        <div class="form-group col-sm-12">
+                            <label for="exampleFormControlSelect1">City</label>
+                            <select class="form-control" id="exampleFormControlSelect1" value="select1">
+                                <option name="city">--Select--</option>
+
+                            </select>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox3" value="Django">
-                            <label class="form-check-label" for="Checkbox1">Django</label>
-                        </div>*@
-                    </div> <br>
+                        <div class="col-sm-12">
 
-                    <div class="form-group col-sm-12">
-                        <label for="exampleFormControlSelect1">State</label>
-                        <select class="form-control" onchange="Chkcity()" id="exampleFormControlSelect" value="select">
-                            <option name="state">--Select--</option>
-
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-12">
-                        <label for="exampleFormControlSelect1">City</label>
-                        <select class="form-control" id="exampleFormControlSelect1" value="select1">
-                            <option name="city">--Select--</option>
-
-                        </select>
-                    </div>
-                    <div class="col-sm-12">
-                       
                             &emsp;&emsp; &emsp;&emsp;
                             <button class="btn btn-success" id="subBtn">submit</button>
-                            <button class="btn btn-danger" id="canBtn" onclick="showhide()" data-dismiss="modal">Cancel</button>
-                        
+                            <button class="btn btn-danger" id="canBtn" data-dismiss="modal">Cancel</button>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -152,6 +152,7 @@
         loaddata();
 
         loadSkill()
+        
     });
     var loaddata = function () {
 
@@ -165,7 +166,7 @@
                     '<td>' + value.PhoneNo + '</td>' +
                     '<td>' + value.Gender + '</td>' +
                     '<td>' + value.Department + '</td>' +
-                    '<td id=_skill'+ value.ID+'>' + value.Skill + '</td>' +
+                    '<td id=_skill' + value.ID + '>' + value.Skill + '</td>' +
                     '<td>' + value.State + '</td>' +
                     '<td>' + value.City + '</td>' +
                     '<td><button class="btn btn-danger">delete</button><button class="btn  btn-primary btnEdit" id="">edit</button></td></tr>')
@@ -208,7 +209,7 @@
             PhoneNo: $('[name="Phone_no"]').val(),
             Gender: $('[name="gender"]:checked').val(),
             Department: $('[name="department"]:checked').val(),
-           // Skill: $('[name="skill"]:checked').val(),
+            // Skill: $('[name="skill"]:checked').val(),
             StateId: $('[name="state"]:selected').val(),
             CityId: $('[name="city"]:selected').val(),
             State: $('[name="state"]:selected').text(),
@@ -220,25 +221,28 @@
         $.each($("input[name='skill']:checked"), function () {
             arr.push($(this).val());
         });
-      obj.Skill= arr.join(',')
+        obj.Skill = arr.join(',')
         var action = '<button class="btn btn-danger">delete</button><button id="show" class="btn  btn-primary">edit</button>'
         var rowcount = $('tbody tr').length;
         if (obj.ID == 0 || obj.ID == "0") {
             $.post('/Home/AddEmp', obj).done(function (result) {
                 loaddata();
+                $('#canBtn').trigger('click');
                 $('#exampleModalCenter').modal('hide');
             });
         }
         else {
+            
             $.post('/Home/UpdateEmp', obj).done(function (result) {
                 loaddata();
+                $('#canBtn').trigger('click');
             }).fail(function (result) {
                 alert('Failed');
 
             });
         }
 
-        onclick = "hide()";
+       
     });
 
     $('body').on('click', '.btn-danger', function () {
@@ -271,29 +275,46 @@
             StateId: row.attr('data-state'),
             CityId: row.attr('data-city'),
         };
-        
+
         $('#exampleModalCenter').modal('show');
         $("input[name=id]").val(obj.ID);
         $("#subBtn").html('Update');
         $('#name').val(obj.Name);
         $('#email').val(obj.Email);
         $('#Phone_no').val(obj.PhoneNo);
-       // $("input[name=skill][value='" + obj.Skill + "']").attr('checked', 'checked');
+        // $("input[name=skill][value='" + obj.Skill + "']").attr('checked', 'checked');
         $("input[name=gender][value=" + obj.Gender + "]").attr('checked', 'checked');
         $("input[name=department][value=" + obj.Department + "]").attr('checked', 'checked');
         $("#exampleFormControlSelect").val(obj.StateId);
-       
-       
 
-    $.each(obj.Skill.split(','), function (key, value) {
-        $(`input[name=skill][value='${value}']`).attr('checked', 'checked');
-    });
+
+
+        $.each(obj.Skill.split(','), function (key, value) {
+            $(`input[name=skill][value='${value}']`).attr('checked', 'checked');
+        });
         loadCity(obj.StateId);
         $("#exampleFormControlSelect1").val(obj.CityId);
-
+       
         $(this).hide();
-
+       
+        
     });
+    function showhide() {
+        $('#name').val("");
+        $('#email').val("");
+        $('#Phone_no').val("");
+        $(`input[name=skill][value='${value}']`).attr('checked', 'checked');
+        $("input[name=gender]").attr('checked', false);
+        $("input[name=department]").attr('checked', false);
+        $("#exampleFormControlSelect").val(0);
+        $("#exampleFormControlSelect1").val(0);
+
+
+
+
+        $('.btnEdit').show();
+    }
+
     var loadSkill = function () {
         $.get('/Home/getSkill').done(function (result) {
             $('#skildiv').html("");
@@ -316,9 +337,9 @@
             $.each(skilldata, function (Id, SkillName) {
                 alert(SkillName)
             });
-        } )
+        })
     }
-
+    $("Update")
 
 </script>
 
