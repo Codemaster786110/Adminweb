@@ -16,6 +16,10 @@ namespace Adminweb.Controllers
         {
             return View();
         }
+        public ActionResult postdata()
+        {
+            return PartialView("~/Views/Home/PartialView/postdata.cshtml");
+        }
         public ActionResult City()
         {
             return View();
@@ -128,56 +132,56 @@ namespace Adminweb.Controllers
             return Json(empp, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult parEmp()
-        {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["RoundPay"].ConnectionString);
-            List<Employee> empp = new List<Employee>();
-            try
-            {
-                SqlCommand cmd = new SqlCommand("SELECT e.*,s.State,c.City FROM tbl_Employee E JOIN tbl_States S ON E.StateId = S.Id join tbl_City C on E.CityId=C.Id", con);
-                cmd.CommandType = CommandType.Text;
-                SqlDataAdapter da = new SqlDataAdapter();
-                da.SelectCommand = cmd;
-                con.Open();
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                con.Close();
+        //public ActionResult parEmp()
+        //{
+        //    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["RoundPay"].ConnectionString);
+        //    List<Employee> empp = new List<Employee>();
+        //    try
+        //    {
+        //        SqlCommand cmd = new SqlCommand("SELECT e.*,s.State,c.City FROM tbl_Employee E JOIN tbl_States S ON E.StateId = S.Id join tbl_City C on E.CityId=C.Id", con);
+        //        cmd.CommandType = CommandType.Text;
+        //        SqlDataAdapter da = new SqlDataAdapter();
+        //        da.SelectCommand = cmd;
+        //        con.Open();
+        //        DataTable dt = new DataTable();
+        //        da.Fill(dt);
+        //        con.Close();
 
-                ;
+        //        ;
 
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        Employee Emp = new Employee();
-                        Emp.ID = Convert.ToInt32(dr["_Id"]);
-                        Emp.Name = Convert.ToString(dr["_Name"]);
-                        Emp.Email = Convert.ToString(dr["_Email"]);
-                        Emp.PhoneNo = Convert.ToString(dr["_PhoneNo"]);
-                        Emp.Gender = Convert.ToString(dr["_Gender"]);
-                        Emp.Department = Convert.ToString(dr["_Department"]);
-                        Emp.Skill = Convert.ToString(dr["_Skill"]);
-                        Emp.State = Convert.ToString(dr["State"]);
-                        Emp.City = Convert.ToString(dr["City"]);
-                        Emp.StateId = Convert.ToInt32(dr["StateId"]);
-                        Emp.CityId = Convert.ToInt32(dr["CityId"]);
-                        empp.Add(Emp);
-                    }
+        //        if (dt != null && dt.Rows.Count > 0)
+        //        {
+        //            foreach (DataRow dr in dt.Rows)
+        //            {
+        //                Employee Emp = new Employee();
+        //                Emp.ID = Convert.ToInt32(dr["_Id"]);
+        //                Emp.Name = Convert.ToString(dr["_Name"]);
+        //                Emp.Email = Convert.ToString(dr["_Email"]);
+        //                Emp.PhoneNo = Convert.ToString(dr["_PhoneNo"]);
+        //                Emp.Gender = Convert.ToString(dr["_Gender"]);
+        //                Emp.Department = Convert.ToString(dr["_Department"]);
+        //                Emp.Skill = Convert.ToString(dr["_Skill"]);
+        //                Emp.State = Convert.ToString(dr["State"]);
+        //                Emp.City = Convert.ToString(dr["City"]);
+        //                Emp.StateId = Convert.ToInt32(dr["StateId"]);
+        //                Emp.CityId = Convert.ToInt32(dr["CityId"]);
+        //                empp.Add(Emp);
+        //            }
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
-            return PartialView("~/Views/Home/PartialView/emptbl.cshtml", empp);
-        }
+        //            con.Open();
+        //            cmd.ExecuteNonQuery();
+        //            con.Close();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        if (con.State == ConnectionState.Open)
+        //        {
+        //            con.Close();
+        //        }
+        //    }
+        //    return PartialView("~/Views/Home/PartialView/emptbl.cshtml", empp);
+        //}
         public ActionResult State()
         {
             ViewBag.Message = "Your application description page.";
@@ -453,68 +457,72 @@ namespace Adminweb.Controllers
             }
             return Json(i);
         }
-        [HttpPost]
-        public ActionResult editUpdateEmp(Employee Data)
-        {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["RoundPay"].ConnectionString);
-            int i = 0;
-            try
-            {
-                if(Data.ID==0)
-                {
-                    return PartialView("~/Views/Home/PartialView/editupdate.cshtml", new Employee() { ID=0});
-                };
 
-                SqlCommand cmd = new SqlCommand("SELECT e.*,s.State,c.City FROM tbl_Employee E JOIN tbl_States S ON E.StateId = S.Id join tbl_City C on E.CityId=C.Id where E._Id=@ID", con);
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@ID", Data.ID);
-                SqlDataAdapter da = new SqlDataAdapter();
-                da.SelectCommand = cmd;
-                con.Open();
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                con.Close();
+     }
 
+   }   
+//        [HttpPost]
+//        public ActionResult editUpdateEmp(Employee Data)
+//        {
+//            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["RoundPay"].ConnectionString);
+//            int i = 0;
+//            try
+//            {
+//                if(Data.ID==0)
+//                {
+//                    return PartialView("~/Views/Home/PartialView/editupdate.cshtml", new Employee() { ID=0});
+//                };
 
-
-                if (dt != null && dt.Rows.Count > 0)
-                {
-
-                    Employee Emp = new Employee();
-                    Emp.ID = Convert.ToInt32(dt.Rows[0]["_Id"]);
-                    Emp.Name = Convert.ToString(dt.Rows[0]["_Name"]);
-                    Emp.Email = Convert.ToString(dt.Rows[0]["_Email"]);
-                    Emp.PhoneNo = Convert.ToString(dt.Rows[0]["_PhoneNo"]);
-                    Emp.Gender = Convert.ToString(dt.Rows[0]["_Gender"]);
-                    Emp.Department = Convert.ToString(dt.Rows[0]["_Department"]);
-                    Emp.Skill = Convert.ToString(dt.Rows[0]["_Skill"]);
-                    Emp.State = Convert.ToString(dt.Rows[0]["State"]);
-                    Emp.City = Convert.ToString(dt.Rows[0]["City"]);
-                    Emp.StateId = Convert.ToInt32(dt.Rows[0]["StateId"]);
-                    Emp.CityId = Convert.ToInt32(dt.Rows[0]["CityId"]);
+//                SqlCommand cmd = new SqlCommand("SELECT e.*,s.State,c.City FROM tbl_Employee E JOIN tbl_States S ON E.StateId = S.Id join tbl_City C on E.CityId=C.Id where E._Id=@ID", con);
+//                cmd.CommandType = CommandType.Text;
+//                cmd.Parameters.AddWithValue("@ID", Data.ID);
+//                SqlDataAdapter da = new SqlDataAdapter();
+//                da.SelectCommand = cmd;
+//                con.Open();
+//                DataTable dt = new DataTable();
+//                da.Fill(dt);
+//                con.Close();
 
 
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    return PartialView("~/Views/Home/PartialView/editupdate.cshtml", Emp);
+//                if (dt != null && dt.Rows.Count > 0)
+//                {
 
-                }
-            }
-            catch (Exception ex)
-            {
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
-            return PartialView("~/Views/Home/PartialView/editupdate.cshtml", Data);
+//                    Employee Emp = new Employee();
+//                    Emp.ID = Convert.ToInt32(dt.Rows[0]["_Id"]);
+//                    Emp.Name = Convert.ToString(dt.Rows[0]["_Name"]);
+//                    Emp.Email = Convert.ToString(dt.Rows[0]["_Email"]);
+//                    Emp.PhoneNo = Convert.ToString(dt.Rows[0]["_PhoneNo"]);
+//                    Emp.Gender = Convert.ToString(dt.Rows[0]["_Gender"]);
+//                    Emp.Department = Convert.ToString(dt.Rows[0]["_Department"]);
+//                    Emp.Skill = Convert.ToString(dt.Rows[0]["_Skill"]);
+//                    Emp.State = Convert.ToString(dt.Rows[0]["State"]);
+//                    Emp.City = Convert.ToString(dt.Rows[0]["City"]);
+//                    Emp.StateId = Convert.ToInt32(dt.Rows[0]["StateId"]);
+//                    Emp.CityId = Convert.ToInt32(dt.Rows[0]["CityId"]);
 
-        }
 
-    }
-}
+
+//                    con.Open();
+//                    cmd.ExecuteNonQuery();
+//                    con.Close();
+//                    return PartialView("~/Views/Home/PartialView/editupdate.cshtml", Emp);
+
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                if (con.State == ConnectionState.Open)
+//                {
+//                    con.Close();
+//                }
+//            }
+//            return PartialView("~/Views/Home/PartialView/editupdate.cshtml", Data);
+
+//        }
+
+//    }
+//}
 
 
 

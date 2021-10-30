@@ -8,20 +8,45 @@
             <div class="card-header">
                 <h3 class="d-flex justify-content-between">
                     Employee Data
-                    <button type="button" onclick="UpdateEmp(0)" class="btn btn-dark float-right" data-toggle="modal" data-target="#exampleModalCenter">
+                    <button type="button" class="btn btn-dark float-right" data-toggle="modal" data-target="#exampleModalCenter">
                         Add New Emp
                     </button>
                 </h3>
             </div>
         </div>
         <div class="card-body">
-            <div id="tab">
+            <div class="container table-responsive">
+                
+
+                  <table class="table  table-hover" style="height:100px; overflow: hidden;">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Phone No</th>
+                            <th>DOB</th>
+                            <th>Gender</th>
+                            <th>Department</th>
+                            <th>Skill</th>
+                            <th>State</th>
+                            <th>City</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    </tbody>
+                </table>
 
             </div>
-            
+
         </div>
     </div>
-</div>
+  </div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -33,135 +58,118 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div id="mb">
 
 
-                @*<div class="modal-body">
-            <div class="row">
-                <input type="text" hidden class="form-control" name="id" value="0">
-                <div class="col-sm-6">
-                    Name:
-                    <input type="text" class="form-control" id="name" placeholder="name" name="name">
-                </div>
-                <div class="col-sm-6">
-                    Email:
-                    <input type="text" class="form-control" placeholder="email" id="email" name="email">
-                </div>
-                <div class="col-sm-6">
-                    Phone no:
-                    <input type="text" class="form-control" id="Phone_no" placeholder="phone no" name="Phone_no">
-                </div>  <br>
-                <div class="form-check form-check-inline col-sm-6">
-                    Gender&nbsp;
 
-                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male">
-                    <label class="form-check-label" for="inlineRadio1">male</label>
-                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female">
-                    <label class="form-check-label" for="inlineRadio2">female</label>
-                </div>
-                <div>
-                    <br>
-                    <div class="form-check form-check-inline">
-                        Department&nbsp&nbsp
-                        <input class="form-check-input department" name="department" type="checkbox" id="inlineCheckbox1" value="Hr">
-                        <label class="form-check-label" for="inlineCheckbox1">Hr</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input department" name="department" type="checkbox" id="inlineCheckbox2" value="Account">
-                        <label class="form-check-label" for="inlineCheckbox2">Account</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input department" name="department" type="checkbox" id="inlineCheckbox3" value="IT">
-                        <label class="form-check-label" for="inlineCheckbox1">IT</label>
-                    </div>
-                </div> <br>
-                <div>
-                    <br>
-                    <div class="form-check form-check-inline">
-                        Skill&nbsp&nbsp
-                        <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox1" value=".Net">
-                        <label class="form-check-label" for="Checkbox1">.Net</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox2" value="SQL Server">
-                        <label class="form-check-label" for="Checkbox2">SQL Server</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox3" value="Django">
-                        <label class="form-check-label" for="Checkbox1">Django</label>
-                    </div>
-                </div> <br>
 
-                <div class="form-group col-sm-6">
-                    <label for="exampleFormControlSelect1">State</label>
-                    <select class="form-control" onchange="Chkcity()" id="exampleFormControlSelect" value="select">
-                        <option name="state">--Select--</option>
+               <div class="modal-body">
+                <div class="row">
+                    <input type="text" hidden class="form-control" name="id" value="0">
+                    <div class="col-sm-6">
+                        Name:
+                        <input type="text" class="form-control" id="name" placeholder="name" name="name">
+                    </div>
+                    <div class="col-sm-6">
+                        Email:
+                        <input type="text" class="form-control" placeholder="email" id="email" name="email">
+                    </div>
+                    <div class="col-sm-6">
+                        Phone no:
+                        <input type="text" class="form-control" id="Phone_no" placeholder="phone no" name="Phone_no">
+                    </div>  <br>
+                    <div class="form-check form-check-inline col-sm-6">
+                        Gender&nbsp;
 
-                    </select>
-                </div>
-                <div class="form-group col-sm-6">
-                    <label for="exampleFormControlSelect1">City</label>
-                    <select class="form-control" id="exampleFormControlSelect1" value="select1">
-                        <option name="city">--Select--</option>
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male">
+                        <label class="form-check-label" for="inlineRadio1">male</label>
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female">
+                        <label class="form-check-label" for="inlineRadio2">female</label>
+                    </div>
+                    <div>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            Department&nbsp&nbsp
+                            <input class="form-check-input department" name="department" type="checkbox" id="inlineCheckbox1" value="Hr">
+                            <label class="form-check-label" for="inlineCheckbox1">Hr</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input department" name="department" type="checkbox" id="inlineCheckbox2" value="Account">
+                            <label class="form-check-label" for="inlineCheckbox2">Account</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input department" name="department" type="checkbox" id="inlineCheckbox3" value="IT">
+                            <label class="form-check-label" for="inlineCheckbox1">IT</label>
+                        </div>
+                    </div> <br>
+                    <div>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            Skill&nbsp&nbsp
+                            <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox1" value=".Net">
+                            <label class="form-check-label" for="Checkbox1">.Net</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox2" value="SQL Server">
+                            <label class="form-check-label" for="Checkbox2">SQL Server</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox3" value="Django">
+                            <label class="form-check-label" for="Checkbox1">Django</label>
+                        </div>
+                    </div> <br>
 
-                    </select>
+                    <div class="form-group col-sm-6">
+                        <label for="exampleFormControlSelect1">State</label>
+                        <select class="form-control" onchange="Chkcity()" id="exampleFormControlSelect" value="select">
+                            <option name="state">--Select--</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="exampleFormControlSelect1">City</label>
+                        <select class="form-control" id="exampleFormControlSelect1" value="select1">
+                            <option name="city">--Select--</option>
+
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <center>
+                            &emsp;&emsp; &emsp;&emsp;
+                            <button class="btn btn-success" id="subBtn">submit</button>
+                            <button class="btn btn-danger" id="canBtn" onclick="showhide()" data-dismiss="modal">Cancel</button>
+                        </center>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <center>
-                        &emsp;&emsp; &emsp;&emsp;
-                        <button class="btn btn-success" id="subBtn">submit</button>
-                        <button class="btn btn-danger" id="canBtn" onclick="showhide()" data-dismiss="modal">Cancel</button>
-                    </center>
-                </div>
-            </div>
-        </div>*@
-            </div>
+            </div>*
         </div>
     </div>
 </div>
 <script>
-    //$(document).ready(function () {
-    //$('body').on('click', '#subBtn', function () {
-    //    var data = {
-    //        Name: $('[name="name"]').val(),
-    //        Email: $('[name="email"]').val(),
-    //        Phoneno: $('[name="Phone_no"]').val(),
-    //        Gender: $('[name="gender"]:checked').val(),
-    //        Department: $('[name="department"]:checked').val(),
-    //        Skill: $('[name="skill"]:checked').val(),
-    //        State: $('[name="state"]:selected').val(),
-    //        City: $('[name="city"]:selected').val()
-    //    }
 
+    $(document).ready(function () {
+        loadState1();
+        loadCity();
+        loaddata();
+    });
+    var loaddata = function () {
 
-
-    //});
-    //var loaddata = function () {
-
-    //    $.get('/Home/parEmp').done(function (result) {
-    //        $("tbody").html("");
-    //        debugger
-    //        console.log(result);
-    //        $.each(result, function (index, value) {
-    //            console.log(value);
-    //            //$("tbody").append('<tr  data-id="' + value.ID + '"data-name="' + value.Name + '" data-email=' + value.Email + ' data-phone_no=' + value.PhoneNo + ' data-gender=' + value.Gender + ' data-department=' + value.Department + ' data-skill="' + value.Skill + '" data-state=' + value.StateId + ' data-city=' + value.CityId + ' ><td></td>' +
-    //            //    '<td>' + value.Name + '</td>' +
-    //            //    '<td>' + value.Email + '</td>' +
-    //            //    '<td>' + value.PhoneNo + '</td>' +
-    //            //    '<td>' + value.Gender + '</td>' +
-    //            //    '<td>' + value.Department + '</td>' +
-    //            //    '<td>' + value.Skill + '</td>' +
-    //            //    '<td>' + value.State + '</td>' +
-    //            //    '<td>' + value.City + '</td>' +
-    //            //    '<td><button class="btn btn-danger">delete</button><button class="btn  btn-primary btnEdit" id="">edit</button></td></tr>'
-    //            );
-
-    //        });
-
-
-    //    });
-
-    //};
+        $("tbody").html("");
+        $.get('/Home/getEmp').done(function (result) {
+            $.each(result, function (index, value) {
+                console.log(value);
+                $("tbody").append('<tr  data-id="' + value.ID + '"data-name="' + value.Name + '" data-email=' + value.Email + ' data-phone_no=' + value.PhoneNo + ' data-gender=' + value.Gender + ' data-department=' + value.Department + ' data-skill="' + value.Skill + '" data-state=' + value.StateId + ' data-city=' + value.CityId + '><td></td>' +
+                    '<td>' + value.Name + '</td>' +
+                    '<td>' + value.Email + '</td>' +
+                    '<td>' + value.PhoneNo + '</td>' +
+                    '<td>' + value.Gender + '</td>' +
+                    '<td>' + value.Department + '</td>' +
+                    '<td>' + value.Skill + '</td>' +
+                    '<td>' + value.State + '</td>' +
+                    '<td>' + value.City + '</td>' +
+                    '<td><button class="btn btn-danger">delete</button><button class="btn  btn-primary btnEdit" id="">edit</button></td></tr>')
+            });
+        });
+    }
 
     var loadCity = function (StateId = 0) {
 
@@ -175,202 +183,103 @@
     };
 
 
-    $(document).ready(function () {
+    var loadState1 = function () {
 
+        $.get('/Home/getState').done(function (result) {
 
-
-        var loadState1 = function () {
-
-            $.get('/Home/getState').done(function (result) {
-
-                for (i = 0; i < result.length; i++) {
-                    $("#exampleFormControlSelect").append($("<option name='state'></option>").val(result[i].Id).html(result[i].StateName));
-                };
-            });
-        };
-        loadState1();
-        loadCity();
-        loaddata();
-        $('#subBtn').click(function () {
-            debugger;
-            var obj = {
-                ID: $('[name="id"]').val(),
-                Name: $('[name="name"]').val(),
-                Email: $('[name="email"]').val(),
-                PhoneNo: $('[name="Phone_no"]').val(),
-                Gender: $('[name="gender"]:checked').val(),
-                Department: $('[name="department"]:checked').val(),
-                Skill: $('[name="skill"]:checked').val(),
-                StateId: $('[name="state"]:selected').val(),
-                CityId: $('[name="city"]:selected').val(),
-                State: $('[name="state"]:selected').text(),
-                City: $('[name="city"]:selected').text()
-
-            }
-            var action = '<button class="btn btn-danger">delete</button><button id="show" class="btn  btn-primary">edit</button>'
-            var rowcount = $('tbody tr').length;
-            if (obj.ID == 0 || obj.ID == "0") {
-                $.post('/Home/AddEmp', obj).done(function (result) {
-                    loaddata();
-                    $('#exampleModalCenter').modal('hide');
-                });
-            }
-            else {
-                $.post('/Home/UpdateEmp', obj).done(function (result) {
-                    loaddata();
-                }).fail(function (result) {
-                    alert('Failed');
-
-                });
-            }
-
-            onclick = "hide()";
+            for (i = 0; i < result.length; i++) {
+                $("#exampleFormControlSelect").append($("<option name='state'></option>").val(result[i].Id).html(result[i].StateName));
+            };
         });
-
-        //$('body').on('click', '.btn-danger', function () {
-
-        //    let row = $(this).closest('tr');
-        //    var obj = {
-        //        ID: row.attr('data-id'),
-        //    }
-
-        //    $.post('/Home/DeleteEmp', obj).done(function (result) {
-        //        loaddata();
-        //    }).fail(function (result) {
-        //        alert('Failed');
-        //    });
-
-
-        //});
-      
-
-
-        //$('body').on("click", ".btnEdit", function () {
-        //    debugger;
-        //    let row = $(this).closest('tr');
-        //    var obj = {
-        //        ID: row.attr('data-id'),
-        //        Name: row.attr('data-name'),
-        //        Email: row.attr('data-email'),
-        //        PhoneNo: row.attr('data-phone_no'),
-        //        Gender: row.attr('data-gender'),
-        //        Department: row.attr('data-department'),
-        //        Skill: row.attr('data-skill'),
-        //        State: row.attr('data-state'),
-        //        City: row.attr('data-city'),
-        //        StateId: row.attr('data-state'),
-        //        CityId: row.attr('data-city'),
-        //    }
-
-        //    $('#exampleModalCenter').modal('show');
-        //    $("input[name=id]").val(obj.ID);
-        //    $("#subBtn").html('Update');
-        //    $('#name').val(obj.Name);
-        //    $('#email').val(obj.Email);
-        //    $('#Phone_no').val(obj.PhoneNo);
-        //    $("input[name=skill][value='" + obj.Skill + "']").attr('checked', 'checked');
-        //    $("input[name=gender][value=" + obj.Gender + "]").attr('checked', 'checked');
-        //    $("input[name=department][value=" + obj.Department + "]").attr('checked', 'checked');
-        //    $("#exampleFormControlSelect").val(obj.StateId);
-        //    loadCity(obj.StateId);
-        //    $("#exampleFormControlSelect1").val(obj.CityId);
-
-        //  $(this).hide();
-        //});
-        //$('body').on('click', '.savebtn', function () {
-
-        //    let row = $(this).parents('tr');
-        //    var obj = {
-
-        //        ID: row.attr('data-id'),
-        //        Name: row.find('[name="edit_name"]').val(),
-        //        Email: row.find('[name="edit_email"]').val(),
-        //        PhoneNo: row.find('[name="edit_phone_no"]').val(),
-        //        Gender: row.find('[name="edit_gender"]').val(),
-        //        Department: row.find('[name="edit_department"]').val(),
-        //        Skill: row.find('[name="edit_skill"]').val(),
-        //        State: row.find('[name="edit_state"]').val(),
-        //        City: row.find('[name="edit_city"]').val()
-
-        //    }
-
-
-
-        //     $.post('/Home/UpdateEmp', obj).done(function (result) {
-        //         loaddata();
-        //     }).fail(function (result) {
-        //         alert('Failed');
-
-        //});
-
-        //    //row.find("td:eq(1)").html(obj.Name);
-        //    //row.find("td:eq(2)").html(obj.Department);
-        //    //row.find("td:eq(3)").html(obj.Address);
-        //    //row.find("td:eq(4)").html(obj.City);
-
-        //    //row.find('.editBtn').show();
-        //    //row.find('.savebtn').remove();
-        //});
-
-    });
-
-    function showhide() {
-        $('#name').val("");
-        $('#email').val("");
-        $('#Phone_no').val("");
-        $("input[name=skill]").attr('checked', false);
-        $("input[name=gender]").attr('checked', false);
-        $("input[name=department]").attr('checked', false);
-        $("#exampleFormControlSelect").val(0);
-        $("#exampleFormControlSelect1").val(0);
-
-
-
-
-        $('.btnEdit').show();
-    }
-
+    };
     function Chkcity() {
 
         loadCity($("#exampleFormControlSelect").val())
 
     }
-    var loaddata = function () {
-
-        $.get('/Home/parEmp').done(function (result) {
-            $('#tab').html(result);
-        });
-
-    };
-
-    function DeleteEmp(id) {
+    $('#subBtn').click(function () {
+        debugger;
         var obj = {
-            ID: id
+            ID: $('[name="id"]').val(),
+            Name: $('[name="name"]').val(),
+            Email: $('[name="email"]').val(),
+            PhoneNo: $('[name="Phone_no"]').val(),
+            Gender: $('[name="gender"]:checked').val(),
+            Department: $('[name="department"]:checked').val(),
+            Skill: $('[name="skill"]:checked').val(),
+            StateId: $('[name="state"]:selected').val(),
+            CityId: $('[name="city"]:selected').val(),
+            State: $('[name="state"]:selected').text(),
+            City: $('[name="city"]:selected').text()
+
         }
+
+        var action = '<button class="btn btn-danger">delete</button><button id="show" class="btn  btn-primary">edit</button>'
+        var rowcount = $('tbody tr').length;
+        if (obj.ID == 0 || obj.ID == "0") {
+            $.post('/Home/AddEmp', obj).done(function (result) {
+                loaddata();
+                $('#exampleModalCenter').modal('hide');
+            });
+        }
+        else {
+            $.post('/Home/UpdateEmp', obj).done(function (result) {
+                loaddata();
+            }).fail(function (result) {
+                alert('Failed');
+
+            });
+        }
+
+        onclick = "hide()";
+    });
+
+    $('body').on('click', '.btn-danger', function () {
+
+        let row = $(this).closest('tr');
+        var obj = {
+            ID: row.attr('data-id'),
+        }
+
         $.post('/Home/DeleteEmp', obj).done(function (result) {
             loaddata();
         }).fail(function (result) {
             alert('Failed');
         });
+    });
 
+    $('body').on("click", ".btnEdit", function () {
 
-    } function UpdateEmp(id=0) {
-
+        let row = $(this).closest('tr');
         var obj = {
-            ID: id
-        }
+            ID: row.attr('data-id'),
+            Name: row.attr('data-name'),
+            Email: row.attr('data-email'),
+            PhoneNo: row.attr('data-phone_no'),
+            Gender: row.attr('data-gender'),
+            Department: row.attr('data-department'),
+            Skill: row.attr('data-skill'),
+            State: row.attr('data-state'),
+            City: row.attr('data-city'),
+            StateId: row.attr('data-state'),
+            CityId: row.attr('data-city'),
+        };
+
         $('#exampleModalCenter').modal('show');
-        $.post('/Home/editUpdateEmp', obj).done(function (result) {
-            $("#mb").html("");
-            $("#mb").append(result)
-        }).fail(function (result) {
-            alert('Failed');
-        });
+        $("input[name=id]").val(obj.ID);
+        $("#subBtn").html('Update');
+        $('#name').val(obj.Name);
+        $('#email').val(obj.Email);
+        $('#Phone_no').val(obj.PhoneNo);
+        $("input[name=skill][value='" + obj.Skill + "']").attr('checked', 'checked');
+        $("input[name=gender][value=" + obj.Gender + "]").attr('checked', 'checked');
+        $("input[name=department][value=" + obj.Department + "]").attr('checked', 'checked');
+        $("#exampleFormControlSelect").val(obj.StateId);
+        loadCity(obj.StateId);
+        $("#exampleFormControlSelect1").val(obj.CityId);
 
+        $(this).hide();
 
-
-    }
-
+     });
 </script>
-
 
