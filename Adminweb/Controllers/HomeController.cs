@@ -46,6 +46,10 @@ namespace Adminweb.Controllers
         {
             return View();
         }
+        public ActionResult Skill()
+        {
+            return View();
+        }
 
         [HttpPost]
         public ActionResult AddEmp(Employee Data)
@@ -323,6 +327,51 @@ namespace Adminweb.Controllers
                 }
             }
             return Json(state, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult getSkill()
+        {
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["RoundPay"].ConnectionString);
+            List<Skill> skill = new List<Skill>();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("select * from tbl_Skill", con);
+                cmd.CommandType = CommandType.Text;
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                con.Open();
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                con.Close();
+
+                ;
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        Skill ski = new Skill();
+                        ski.Id = Convert.ToInt32(dr["Id"]);
+
+                        ski.SkillName = Convert.ToString(dr["Skill"]);
+
+
+                        skill.Add(ski);
+                    }
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
+            return Json(skill, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

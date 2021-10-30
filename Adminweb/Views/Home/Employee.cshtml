@@ -54,7 +54,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Registration Form</h5>
-                <button type="button" onclick="showhide()" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -65,18 +65,18 @@
                <div class="modal-body">
                 <div class="row">
                     <input type="text" hidden class="form-control" name="id" value="0">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         Name:
                         <input type="text" class="form-control" id="name" placeholder="name" name="name">
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         Email:
                         <input type="text" class="form-control" placeholder="email" id="email" name="email">
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         Phone no:
                         <input type="text" class="form-control" id="Phone_no" placeholder="phone no" name="Phone_no">
-                    </div>  <br>
+                    </div>  <br><br>
                     <div class="form-check form-check-inline col-sm-6">
                         Gender&nbsp;
 
@@ -103,9 +103,9 @@
                     </div> <br>
                     <div>
                         <br>
-                        <div class="form-check form-check-inline">
+                        <div  id="skildiv" class="form-check form-check-inline">
                             Skill&nbsp&nbsp
-                            <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox1" value=".Net">
+                            @*<input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox1" value=".Net">
                             <label class="form-check-label" for="Checkbox1">.Net</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -115,41 +115,43 @@
                         <div class="form-check form-check-inline">
                             <input class="form-check-input skill" name="skill" type="checkbox" id="Checkbox3" value="Django">
                             <label class="form-check-label" for="Checkbox1">Django</label>
-                        </div>
+                        </div>*@
                     </div> <br>
 
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-12">
                         <label for="exampleFormControlSelect1">State</label>
                         <select class="form-control" onchange="Chkcity()" id="exampleFormControlSelect" value="select">
                             <option name="state">--Select--</option>
 
                         </select>
                     </div>
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-12">
                         <label for="exampleFormControlSelect1">City</label>
                         <select class="form-control" id="exampleFormControlSelect1" value="select1">
                             <option name="city">--Select--</option>
 
                         </select>
                     </div>
-                    <div class="col-sm-6">
-                        <center>
+                    <div class="col-sm-12">
+                       
                             &emsp;&emsp; &emsp;&emsp;
                             <button class="btn btn-success" id="subBtn">submit</button>
                             <button class="btn btn-danger" id="canBtn" onclick="showhide()" data-dismiss="modal">Cancel</button>
-                        </center>
+                        
                     </div>
                 </div>
-            </div>*
+            </div>
         </div>
     </div>
 </div>
 <script>
-
+    var skilldata = null;
     $(document).ready(function () {
         loadState1();
         loadCity();
         loaddata();
+
+        loadSkill()
     });
     var loaddata = function () {
 
@@ -163,7 +165,7 @@
                     '<td>' + value.PhoneNo + '</td>' +
                     '<td>' + value.Gender + '</td>' +
                     '<td>' + value.Department + '</td>' +
-                    '<td>' + value.Skill + '</td>' +
+                    '<td id=_skill'+ value.ID+'>' + value.Skill + '</td>' +
                     '<td>' + value.State + '</td>' +
                     '<td>' + value.City + '</td>' +
                     '<td><button class="btn btn-danger">delete</button><button class="btn  btn-primary btnEdit" id="">edit</button></td></tr>')
@@ -206,7 +208,7 @@
             PhoneNo: $('[name="Phone_no"]').val(),
             Gender: $('[name="gender"]:checked').val(),
             Department: $('[name="department"]:checked').val(),
-            Skill: $('[name="skill"]:checked').val(),
+           // Skill: $('[name="skill"]:checked').val(),
             StateId: $('[name="state"]:selected').val(),
             CityId: $('[name="city"]:selected').val(),
             State: $('[name="state"]:selected').text(),
@@ -214,6 +216,11 @@
 
         }
 
+        var arr = [];
+        $.each($("input[name='skill']:checked"), function () {
+            arr.push($(this).val());
+        });
+      obj.Skill= arr.join(',')
         var action = '<button class="btn btn-danger">delete</button><button id="show" class="btn  btn-primary">edit</button>'
         var rowcount = $('tbody tr').length;
         if (obj.ID == 0 || obj.ID == "0") {
@@ -249,7 +256,7 @@
     });
 
     $('body').on("click", ".btnEdit", function () {
-
+        debugger
         let row = $(this).closest('tr');
         var obj = {
             ID: row.attr('data-id'),
@@ -264,22 +271,54 @@
             StateId: row.attr('data-state'),
             CityId: row.attr('data-city'),
         };
-
+        
         $('#exampleModalCenter').modal('show');
         $("input[name=id]").val(obj.ID);
         $("#subBtn").html('Update');
         $('#name').val(obj.Name);
         $('#email').val(obj.Email);
         $('#Phone_no').val(obj.PhoneNo);
-        $("input[name=skill][value='" + obj.Skill + "']").attr('checked', 'checked');
+       // $("input[name=skill][value='" + obj.Skill + "']").attr('checked', 'checked');
         $("input[name=gender][value=" + obj.Gender + "]").attr('checked', 'checked');
         $("input[name=department][value=" + obj.Department + "]").attr('checked', 'checked');
         $("#exampleFormControlSelect").val(obj.StateId);
+       
+       
+
+    $.each(obj.Skill.split(','), function (key, value) {
+        $(`input[name=skill][value='${value}']`).attr('checked', 'checked');
+    });
         loadCity(obj.StateId);
         $("#exampleFormControlSelect1").val(obj.CityId);
 
         $(this).hide();
 
-     });
+    });
+    var loadSkill = function () {
+        $.get('/Home/getSkill').done(function (result) {
+            $('#skildiv').html("");
+            skilldata = result;
+            for (i = 0; i < result.length; i++) {
+
+                var a = `<div class="form-check form-check-inline"><input class="form-check-input skill" name="skill" type="checkbox" id="${result[i].Id}" value="${result[i].Id}">
+                    <label class="form-check-label" for="Checkbox1">.${result[i].SkillName}</label></div>`
+                //$('tbody').append('<tr><td>' + result[i].SkillId + '</td>' +
+                //    '<td>' + result[i].SkillName + '</td></tr>');
+                $('#skildiv').append(a)
+            }
+        });
+    };
+    function bundskill() {
+
+
+        $('*[id*=skill]').each(function () {
+            var data = $(this).html().split(',');
+            $.each(skilldata, function (Id, SkillName) {
+                alert(SkillName)
+            });
+        } )
+    }
+
+
 </script>
 

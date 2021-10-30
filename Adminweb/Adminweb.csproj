@@ -125,6 +125,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Skill.cs" />
     <Compile Include="Models\States.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -2136,6 +2137,7 @@
     <Content Include="Views\Home\State.cshtml" />
     <Content Include="Views\Home\City.cshtml" />
     <Content Include="Views\View.cshtml" />
+    <Content Include="Views\Skill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
